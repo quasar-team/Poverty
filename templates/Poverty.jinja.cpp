@@ -45,8 +45,7 @@ bool Poverty::stopServer()
 {
     if (!s_quasarServer)
         return true;
-    g_ShutDown = true;
-    g_RunningFlag = false;
+    ShutDown();
     s_serverThread.join();
     return true;
 }

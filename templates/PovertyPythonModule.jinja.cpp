@@ -28,7 +28,7 @@ BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(AS{{className}}_{{cacheVarName}}_overload
 
 
 
-BOOST_PYTHON_MODULE(PovertyBoost)
+BOOST_PYTHON_MODULE(Poverty)
 {
     enum_<StatusCode>("StatusCode")
         .value("Good", Good)
