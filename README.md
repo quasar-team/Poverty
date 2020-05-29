@@ -20,11 +20,13 @@ cached data.
 Basic usage mode
 ----------------
 
-1. clone this module in your quasar project, or add it as a git submodule,
-2. go to the cloned directory (Poverty)
-3. mkdir output
-4. run python py/generate_poverty.py --design ../Design/Design.xml --output_dir output
-5. the files in output directory can be built (include and link against boost-python) and you get your Python wrapper
+1. Steps to do in your quasar project
+  1. add `-fPIC` in the `add_definitions` of your build config
+  1. in `ProjectSettings.cmake` (root of your quasar project) set `BUILD_SERVER_SHARED_LIB` to `ON`.
+  1. also in `ProjectSettings.cmake`, add `Poverty` to `CUSTOM_SERVER_MODULES`.
+  1. Poverty current only works with open62541 backend of quasar. Thus if you are with UA-SDK, switch to open62541.
+1. clone Poverty (this GitHub repo) in your quasar project, or add it as a git submodule,
+1. build your OPC-UA server (e.g. `./quasar.py build`)
 
 
 Why Poverty and not a custom, pure Python OPC-UA solution?
