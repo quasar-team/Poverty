@@ -1,0 +1,59 @@
+/*
+ * PovertyBoost.cpp
+ *
+ *  Created on: 9 Jan 2019
+ *      Author: pnikiel
+ */
+
+#include <boost/python.hpp>
+using namespace boost::python;
+
+#include <statuscode.h>
+#include <uadatetime.h>
+
+#include <Poverty.hpp>
+
+enum StatusCode
+{
+    Good = OpcUa_Good,
+    Bad = OpcUa_Bad
+};
+
+{% for className in designInspector.get_names_of_all_classes() %}
+  //! overloads for cachevariables of {{className}}
+  {% for cv in designInspector.objectify_class(className).cachevariable %}
+    BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(AS{{className}}_{{cv.get('name')}}_overloads, set{{cv.get('name')|capFirst}}, 2, 3);
+  {% endfor %}
+{% endfor %}
+
+
+
+BOOST_PYTHON_MODULE(Poverty)
+{
+    enum_<StatusCode>("StatusCode")
+        .value("Good", Good)
+        .value("Bad", Bad);
+
+    class_<UaDateTime>("UaDateTime")
+        .def("now", &UaDateTime::now).staticmethod("now");
+
+    class_<UaStatus>("UaStatus")
+        .def("isGood", &UaStatus::isGood);
+
+    {% for className in designInspector.get_names_of_all_classes() %}
+    class_<AddressSpace::AS{{className}}>("AS{{className}}", no_init)
+      {% for cv in designInspector.objectify_class(className).cachevariable %}
+        .def("set{{cv.get('name')|capFirst}}", &AddressSpace::AS{{className}}::set{{cv.get('name')|capFirst}}, AS{{className}}_{{cv.get('name')}}_overloads())
+      {% endfor %}
+      ;
+    {% endfor %}
+
+    class_<Poverty>("Poverty")
+      .def("startServer", &Poverty::startServer).staticmethod("startServer")
+      .def("stopServer", &Poverty::stopServer).staticmethod("stopServer")
+      {% for className in designInspector.get_names_of_all_classes() %}
+        .def("get{{className}}", &Poverty::get{{className}}, return_internal_reference<>()).staticmethod("get{{className}}")
+      {% endfor %}
+
+      ;
+}

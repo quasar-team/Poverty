@@ -27,26 +27,28 @@ def get_list_classes(design_file_name):
     return out_dict
 
 parser = argparse.ArgumentParser(description='Generate design-dependent part of Poverty')
-parser.add_argument('--design', help='Path to your Design.xml', required=True)
 parser.add_argument('--output_dir', help='Where to put the output', required=True)
 
 args = parser.parse_args()
-
-classes_cachevariables = get_list_classes(args.design)
-
-env = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
-
-# fout = file(os.path.join(args.output_dir,'PovertyPythonModule.cpp'), 'w')
-# fout.write(env.get_template('PovertyPythonModule.jinja.cpp').render({'classes_cachevariables':classes_cachevariables}))
-# fout = file(os.path.join(args.output_dir,'Poverty.hpp'), 'w')
-# fout.write(env.get_template('Poverty.jinja.hpp').render({'classes_cachevariables':classes_cachevariables}))
-# fout = file(os.path.join(args.output_dir,'Poverty.cpp'), 'w')
-# fout.write(env.get_template('Poverty.jinja.cpp').render({'classes_cachevariables':classes_cachevariables}))
 
 try:
     transformDesign(
         os.path.join('Poverty', 'templates', 'Poverty.hpp.jinja'),
         outputFile=os.path.join(args.output_dir, 'Poverty.hpp'),
+        requiresMerge=False,
+        astyleRun=True,
+        additionalParam=None)
+        
+    transformDesign(
+        os.path.join('Poverty', 'templates', 'Poverty.cpp.jinja'),
+        outputFile=os.path.join(args.output_dir, 'Poverty.cpp'),
+        requiresMerge=False,
+        astyleRun=True,
+        additionalParam=None)
+        
+    transformDesign(
+        os.path.join('Poverty', 'templates', 'PovertyPythonModule.cpp.jinja'),
+        outputFile=os.path.join(args.output_dir, 'PovertyPythonModule.cpp'),
         requiresMerge=False,
         astyleRun=True,
         additionalParam=None)

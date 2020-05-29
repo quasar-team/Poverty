@@ -23,3 +23,7 @@ config = os.path.sep.join(['..', 'bin', 'config.xml'])
 Poverty.Poverty.startServer(backend_config, config)
 time.sleep(2)
 #t1=Poverty.Poverty.getTemperatureProbe('t1')
+
+# some other usage example: (OpcUaEFex)
+# v1=Poverty.Poverty.getVoltage('sh1.b1.m1.fpga1.v1')
+# v1.setVoltage(4, Poverty.StatusCode.Good)
