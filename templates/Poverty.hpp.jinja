@@ -9,8 +9,8 @@
 #define __POVERTY_HEADER__
 
 #include <string>
-{% for className in classes_cachevariables.keys() %}
-#include <AS{{className}}.h>
+{% for className in designInspector.get_names_of_all_classes() %}
+  #include <AS{{className}}.h>
 {% endfor %}
 
 class Poverty
@@ -25,7 +25,7 @@ public:
     //! Return true when server is considered stopped.
     static bool stopServer();
 
-    {% for className in classes_cachevariables.keys() %}
+    {% for className in designInspector.get_names_of_all_classes() %}
     static AddressSpace::AS{{className}}* get{{className}}(const std::string& address);
     {% endfor %}
 

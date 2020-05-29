@@ -50,7 +50,7 @@ bool Poverty::stopServer()
     return true;
 }
 
-{% for className in classes_cachevariables.keys() %}
+{% for className in designInspector.get_names_of_all_classes() %}
 AddressSpace::AS{{className}}* Poverty::get{{className}}(const std::string& address)
 {
     if (!s_quasarServer)
