@@ -8,7 +8,7 @@ ${PROJECT_BINARY_DIR}/Poverty/output/PovertyPythonModule.cpp
 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_BINARY_DIR}/Poverty/output
 COMMAND ${PYTHON_COMMAND} Poverty/py/generate_poverty.py --design ${DESIGN_FILE} --output_dir ${PROJECT_BINARY_DIR}/Poverty/output
-DEPENDS ${DESIGN_FILE} templates/Poverty.hpp.jinja templates/Poverty.jinja.cpp templates/PovertyPythonModule.jinja.cpp 
+DEPENDS ${DESIGN_FILE} templates/Poverty.hpp.jinja templates/Poverty.jinja.cpp templates/PovertyPythonModule.jinja.cpp py/generate_poverty.py
 )
 
 include_directories(${PROJECT_BINARY_DIR}/Poverty/output)

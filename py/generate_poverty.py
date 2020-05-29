@@ -14,17 +14,17 @@ import quasar_basic_utils
 quasar_namespaces = {'d':'http://cern.ch/quasar/Design'}
 
 def get_list_classes(design_file_name):
-	''' returns a dict where keys are classes and values are lists of cache-variables '''
-	f = file(design_file_name,'r')
-	tree = etree.parse(f)
-	classes_cachevariables = tree.xpath('d:class', namespaces = quasar_namespaces)
-	classes_cachevariables = map(lambda x: x.attrib['name'], classes_cachevariables)
-	out_dict = {}
-	for className in classes_cachevariables:
-		cache_vars = tree.xpath("d:class[@name='{0}']/d:cachevariable".format(className), namespaces = quasar_namespaces)
-		cache_vars = map(lambda x: x.attrib['name'], cache_vars)
-		out_dict[className] = cache_vars
-	return out_dict
+    ''' returns a dict where keys are classes and values are lists of cache-variables '''
+    f = file(design_file_name,'r')
+    tree = etree.parse(f)
+    classes_cachevariables = tree.xpath('d:class', namespaces = quasar_namespaces)
+    classes_cachevariables = map(lambda x: x.attrib['name'], classes_cachevariables)
+    out_dict = {}
+    for className in classes_cachevariables:
+        cache_vars = tree.xpath("d:class[@name='{0}']/d:cachevariable".format(className), namespaces = quasar_namespaces)
+        cache_vars = map(lambda x: x.attrib['name'], cache_vars)
+        out_dict[className] = cache_vars
+    return out_dict
 
 parser = argparse.ArgumentParser(description='Generate design-dependent part of Poverty')
 parser.add_argument('--design', help='Path to your Design.xml', required=True)
