@@ -5,10 +5,10 @@ OUTPUT
 ${PROJECT_BINARY_DIR}/Poverty/output/Poverty.hpp
 ${PROJECT_BINARY_DIR}/Poverty/output/Poverty.cpp
 ${PROJECT_BINARY_DIR}/Poverty/output/PovertyPythonModule.cpp
-WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/Poverty
+WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_BINARY_DIR}/Poverty/output
-COMMAND ${PYTHON_COMMAND} py/generate_poverty.py --design ${DESIGN_FILE} --output_dir ${PROJECT_BINARY_DIR}/Poverty/output
-DEPENDS ${DESIGN_FILE} templates/Poverty.jinja.hpp templates/Poverty.jinja.cpp templates/PovertyPythonModule.jinja.cpp 
+COMMAND ${PYTHON_COMMAND} Poverty/py/generate_poverty.py --design ${DESIGN_FILE} --output_dir ${PROJECT_BINARY_DIR}/Poverty/output
+DEPENDS ${DESIGN_FILE} templates/Poverty.hpp.jinja templates/Poverty.jinja.cpp templates/PovertyPythonModule.jinja.cpp 
 )
 
 include_directories(${PROJECT_BINARY_DIR}/Poverty/output)

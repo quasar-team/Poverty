@@ -2,8 +2,14 @@ import os
 import argparse
 import jinja2
 import pdb
+import sys
 
 from lxml import etree
+
+sys.path.insert(0, 'FrameworkInternals')  # this is quasar's FrameworkInternals
+
+from transformDesign import transformDesign
+import quasar_basic_utils
 
 quasar_namespaces = {'d':'http://cern.ch/quasar/Design'}
 
@@ -30,9 +36,19 @@ classes_cachevariables = get_list_classes(args.design)
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
 
-fout = file(os.path.join(args.output_dir,'PovertyPythonModule.cpp'), 'w')
-fout.write(env.get_template('PovertyPythonModule.jinja.cpp').render({'classes_cachevariables':classes_cachevariables}))
-fout = file(os.path.join(args.output_dir,'Poverty.hpp'), 'w')
-fout.write(env.get_template('Poverty.jinja.hpp').render({'classes_cachevariables':classes_cachevariables}))
-fout = file(os.path.join(args.output_dir,'Poverty.cpp'), 'w')
-fout.write(env.get_template('Poverty.jinja.cpp').render({'classes_cachevariables':classes_cachevariables}))
+# fout = file(os.path.join(args.output_dir,'PovertyPythonModule.cpp'), 'w')
+# fout.write(env.get_template('PovertyPythonModule.jinja.cpp').render({'classes_cachevariables':classes_cachevariables}))
+# fout = file(os.path.join(args.output_dir,'Poverty.hpp'), 'w')
+# fout.write(env.get_template('Poverty.jinja.hpp').render({'classes_cachevariables':classes_cachevariables}))
+# fout = file(os.path.join(args.output_dir,'Poverty.cpp'), 'w')
+# fout.write(env.get_template('Poverty.jinja.cpp').render({'classes_cachevariables':classes_cachevariables}))
+
+try:
+    transformDesign(
+        os.path.join('Poverty', 'templates', 'Poverty.hpp.jinja'),
+        outputFile=os.path.join(args.output_dir, 'Poverty.hpp'),
+        requiresMerge=False,
+        astyleRun=True,
+        additionalParam=None)
+except:
+    quasar_basic_utils.quasaric_exception_handler()
