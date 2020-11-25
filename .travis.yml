@@ -1,0 +1,20 @@
+sudo: required
+
+language: cpp
+
+services:
+ - docker
+
+jobs:
+  include:
+    - name: basic_test
+      script:
+        - docker run  --interactive --tty pnikiel-cc7-quasar:latest /bin/bash -c "
+            git clone --recursive -b nebula.B1 https://github.com/quasar-team/quasar.git ;
+            cd quasar ;
+            ./quasar.py set_build_config ./open62541_config.cmake ;
+            ./quasar.py enable_module open62541-compat v1.3.6-rc0 ;
+            git clone https://github.com/quasar-team/Poverty.git ;
+            echo \"set(CUSTOM_SERVER_MODULES Poverty )\" >> ProjectSettings.cmake ;
+            ./quasar.py build ;
+            "
