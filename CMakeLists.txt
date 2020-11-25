@@ -25,7 +25,7 @@ add_dependencies(Poverty AddressSpace)
 
 execute_process(COMMAND python-config --cflags OUTPUT_VARIABLE python_config_cflags RESULT_VARIABLE return_code)
 if (NOT ${return_code} EQUAL 0)
-  message(FATAL "python-config tool returned non-zero! Can't obtain information on python headers ...")
+  message(FATAL_ERROR "python-config tool returned ${return_code}, that is non-zero! Can't obtain information on python headers ...")
 endif ()
 message("NOTE: running python(3)-config --cflags returned: ${python_config_cflags}")
 add_definitions(${python_config_cflags})
