@@ -22,12 +22,16 @@ add_library(Poverty OBJECT
 add_dependencies(Poverty AddressSpace)
 
 # --- from this line on, we deal with building the Python extension and no longer with anything related to quasar.
-
-execute_process(COMMAND python-config --cflags OUTPUT_VARIABLE python_config_cflags RESULT_VARIABLE return_code)
+if(POVERTY_STRICTLY_PYTHON3)
+  set(python_config_command "python3-config")
+else(POVERTY_STRICTLY_PYTHON3)
+  set(python_config_command "python-config")
+endif(POVERTY_STRICTLY_PYTHON3)
+execute_process(COMMAND ${python_config_command} --cflags OUTPUT_VARIABLE python_config_cflags RESULT_VARIABLE return_code)
 if (NOT ${return_code} EQUAL 0)
-  message(FATAL_ERROR "python-config tool returned ${return_code}, that is non-zero! Can't obtain information on python headers ...")
+  message(FATAL_ERROR "${python_config_command} tool returned ${return_code}, that is non-zero! Can't obtain information on python headers ...")
 endif ()
-message("NOTE: running python(3)-config --cflags returned: ${python_config_cflags}")
+message("NOTE: running ${python_config_command} --cflags returned: ${python_config_cflags}")
 add_definitions(${python_config_cflags})
 
 set( SERVER_SHARED_LIB_TARGET ${EXECUTABLE}Object )
