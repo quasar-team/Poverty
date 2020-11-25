@@ -1,7 +1,7 @@
 
 
 add_custom_command(
-OUTPUT 
+OUTPUT
 ${PROJECT_BINARY_DIR}/Poverty/output/Poverty.hpp
 ${PROJECT_BINARY_DIR}/Poverty/output/Poverty.cpp
 ${PROJECT_BINARY_DIR}/Poverty/output/PovertyPythonModule.cpp
@@ -17,13 +17,16 @@ include_directories(${PROJECT_BINARY_DIR}/Poverty/output)
 add_library(Poverty OBJECT
   ${PROJECT_BINARY_DIR}/Poverty/output/Poverty.hpp
   ${PROJECT_BINARY_DIR}/Poverty/output/Poverty.cpp
-  )       
-    
-add_dependencies(Poverty AddressSpace)    
-    
-# --- from this line on, we deal with building the Python extension and no longer with anything related to quasar.    
-  
-execute_process(COMMAND python-config --cflags OUTPUT_VARIABLE python_config_cflags)
+  )
+
+add_dependencies(Poverty AddressSpace)
+
+# --- from this line on, we deal with building the Python extension and no longer with anything related to quasar.
+
+execute_process(COMMAND python-config --cflags OUTPUT_VARIABLE python_config_cflags RESULT_VARIABLE return_code)
+if (NOT ${return_code} EQUAL 0)
+  message(FATAL "python-config tool returned non-zero! Can't obtain information on python headers ...")
+endif ()
 add_definitions(${python_config_cflags})
 
 set( SERVER_SHARED_LIB_TARGET ${EXECUTABLE}Object )
@@ -32,5 +35,5 @@ add_library( PovertyPython SHARED
         ${PROJECT_BINARY_DIR}/Poverty/output/PovertyPythonModule.cpp
         )
 target_link_libraries(PovertyPython boost_python-mt ${SERVER_SHARED_LIB_TARGET})
-set_target_properties(PovertyPython PROPERTIES PREFIX "" OUTPUT_NAME "Poverty") 
+set_target_properties(PovertyPython PROPERTIES PREFIX "" OUTPUT_NAME "Poverty")
 add_dependencies(PovertyPython ${SERVER_SHARED_LIB_TARGET})
