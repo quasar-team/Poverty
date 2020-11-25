@@ -17,5 +17,6 @@ jobs:
             git clone https://github.com/quasar-team/Poverty.git ;
             echo \"set(CUSTOM_SERVER_MODULES Poverty )\" >> ProjectSettings.cmake ;
             echo \"set(BUILD_SERVER_SHARED_LIB ON)\" >> ProjectSettings.cmake ;
+            echo \"add_definitions(-fPIC)\" >> open62541_config.cmake ;
             ./quasar.py build ;
             "
