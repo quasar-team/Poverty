@@ -4,6 +4,7 @@
 echo "set(CUSTOM_SERVER_MODULES Poverty )" >> ProjectSettings.cmake ;
 echo "set(BUILD_SERVER_SHARED_LIB ON)" >> ProjectSettings.cmake ;
 echo "set(POVERTY_STRICTLY_PYTHON3 ON)" >> ProjectSettings.cmake ;
+echo "set(ADDITIONAL_BOOST_LIBS python3 )" >> ProjectSettings.cmake ;
 echo "add_definitions(-fPIC)" >> open62541_config.cmake ;
 ./quasar.py build ;
 cp Poverty/extra/test.py build/bin ;
