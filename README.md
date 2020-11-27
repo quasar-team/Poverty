@@ -36,7 +36,19 @@ Note: tested with quasar version nebula.B1 (shall correspond to 1.5+)
 To test it:
 
 1. in your quasar project, copy the test python script `Poverty/extra/test.py` into `build/bin`
-2. copy, or symlink, `build/Poverty.so` into `build/bin`
+1. copy, or symlink, `build/Poverty.so` into `build/bin`
+1. run the test program: `python3 test.py`
+
+Distributing your Poverty+quasar based OPC-UA server
+----------------------------------------------------
+
+You need the following files in your target application:
+* Poverty.so (builds in build/Poverty)
+* libOpcUaServer.so (builds in build/bin)
+* the particular config file of the server (which has instanced of quasar objects ...), normally called config.xml
+* the particular ServerConfig.xml where stuff like endpoints and OPC-UA certificates are defined.
+
+
 
 
 
