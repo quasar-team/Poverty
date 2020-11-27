@@ -9,7 +9,7 @@ jobs:
   include:
     - name: basic_test
       script:
-        - docker run  --interactive --tty pnikiel-cc7-quasar:latest /bin/bash -c "
+        - docker run  --interactive --tty pnikiel/pnikiel-cc7-quasar:latest /bin/bash -c "
             git clone --recursive -b nebula.B1 https://github.com/quasar-team/quasar.git ;
             cd quasar ;
             git clone -b OPCUA-2081_CI_test_Poverty https://github.com/quasar-team/Poverty.git ;
