@@ -23,13 +23,13 @@ Basic usage mode
 Note: tested with quasar version nebula.B1 (shall correspond to 1.5+)
 
 1. Steps to do in your quasar project
-  1. add `-fPIC` in the `add_definitions` of your build config
-  1. in `ProjectSettings.cmake` (root of your quasar project):
-    1. set `BUILD_SERVER_SHARED_LIB` to `ON`.
-    1. add `Poverty` to `CUSTOM_SERVER_MODULES`.
-    1. add `python3` to `ADDITIONAL_BOOST_LIBS`.
-    1. set `POVERTY_STRICTLY_PYTHON3` in case your system can have both python2 and python3 (most systems). I.e. your system needs to have `python3-config` command visible!
-  1. Poverty current only works with open62541 backend of quasar. Thus if you are with UA-SDK, switch to open62541.
+   1. add `-fPIC` in the `add_definitions` of your build config
+   1. in `ProjectSettings.cmake` (root of your quasar project):
+      1. set `BUILD_SERVER_SHARED_LIB` to `ON`.
+      1. add `Poverty` to `CUSTOM_SERVER_MODULES`.
+      1. add `python3` to `ADDITIONAL_BOOST_LIBS`.
+      1. set `POVERTY_STRICTLY_PYTHON3` in case your system can have both python2 and python3 (most      systems). I.e. your system needs to have `python3-config` command visible!
+   1. Poverty current only works with open62541 backend of quasar. Thus if you are with UA-SDK, switch to open62541.
 1. clone Poverty (this GitHub repo) in your quasar project, or add it as a git submodule,
 1. build your OPC-UA server (e.g. `./quasar.py build`)
 
