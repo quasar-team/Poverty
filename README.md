@@ -9,7 +9,7 @@ What is this?
 [Quasar](https://github.com/quasar-team/quasar) is an open-source framework for rapid creation
 of OPC-UA software components.
 
-Poverty (this project) is an extension module of Quasar. 
+Poverty (this project) is an extension module of Quasar.
 It solves the problem of loading your quasar-made OPC-UA servers from a Python program with
 a Python interface which supports:
 
@@ -20,13 +20,25 @@ cached data.
 Basic usage mode
 ----------------
 
+Note: tested with quasar version nebula.B1 (shall correspond to 1.5+)
+
 1. Steps to do in your quasar project
   1. add `-fPIC` in the `add_definitions` of your build config
-  1. in `ProjectSettings.cmake` (root of your quasar project) set `BUILD_SERVER_SHARED_LIB` to `ON`.
-  1. also in `ProjectSettings.cmake`, add `Poverty` to `CUSTOM_SERVER_MODULES`.
+  1. in `ProjectSettings.cmake` (root of your quasar project):
+    1. set `BUILD_SERVER_SHARED_LIB` to `ON`.
+    1. add `Poverty` to `CUSTOM_SERVER_MODULES`.
+    1. add `python3` to `ADDITIONAL_BOOST_LIBS`.
+    1. set `POVERTY_STRICTLY_PYTHON3` in case your system can have both python2 and python3 (most systems). I.e. your system needs to have `python3-config` command visible!
   1. Poverty current only works with open62541 backend of quasar. Thus if you are with UA-SDK, switch to open62541.
 1. clone Poverty (this GitHub repo) in your quasar project, or add it as a git submodule,
 1. build your OPC-UA server (e.g. `./quasar.py build`)
+
+To test it:
+
+1. in your quasar project, copy the test python script `Poverty/extra/test.py` into `build/bin`
+2. copy, or symlink, `build/Poverty.so` into `build/bin`
+
+
 
 
 Why Poverty and not a custom, pure Python OPC-UA solution?

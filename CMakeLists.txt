@@ -46,6 +46,6 @@ set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${python_config_ldf
 add_library( PovertyPython SHARED
         ${PROJECT_BINARY_DIR}/Poverty/output/PovertyPythonModule.cpp
         )
-target_link_libraries(PovertyPython boost_python-mt ${python_config_libs} ${SERVER_SHARED_LIB_TARGET})
+target_link_libraries(PovertyPython ${BOOST_LIBS} ${python_config_libs} ${SERVER_SHARED_LIB_TARGET})
 set_target_properties(PovertyPython PROPERTIES PREFIX "" OUTPUT_NAME "Poverty")
 add_dependencies(PovertyPython ${SERVER_SHARED_LIB_TARGET})

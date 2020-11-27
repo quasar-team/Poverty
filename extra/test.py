@@ -21,7 +21,12 @@ config = os.path.sep.join(['..', 'bin', 'config.xml'])
 
 
 Poverty.Poverty.startServer(backend_config, config)
-time.sleep(2)
+
+print("The OPC-UA server probably started. We will stop it in 10 seconds")
+time.sleep(10)
+
+Poverty.Poverty.stopServer(backend_config, config)
+
 #t1=Poverty.Poverty.getTemperatureProbe('t1')
 
 # some other usage example: (OpcUaEFex)
