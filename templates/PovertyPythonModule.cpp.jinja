@@ -31,8 +31,8 @@ enum StatusCode
 // the thing below we have to do somehow manually to cover for overloading + default value which boost.python can't do entirely automatically
 {% for className in designInspector.get_names_of_all_classes() %}
   {% for cv in designInspector.objectify_class(className).cachevariable %}
-    UaStatus (AS{{className}}::*setter_{{className}}_{{cv.get('name')}}_value)({{oracle.get_cache_variable_setter_args(cv.get('name'), cv.get('dataType'), False)}}) = &AS{{className}}::set{{cv.get('name')|capFirst}};
-    UaStatus (AS{{className}}::*setter_{{className}}_{{cv.get('name')}}_null)({{oracle.get_cache_variable_setter_args(cv.get('name'), None, False, True)}} = &AS{{className}}::set{{cv.get('name')|capFirst}};
+    UaStatus (AS{{className}}::*setter_{{className}}_{{cv.get('name')}}_value)({{oracle.get_cache_variable_setter_args(cv.get('dataType'), False)}}) = &AS{{className}}::set{{cv.get('name')|capFirst}};
+    UaStatus (AS{{className}}::*setter_{{className}}_{{cv.get('name')}}_null)({{oracle.get_cache_variable_setter_args(None, False, True)}}) = &AS{{className}}::set{{cv.get('name')|capFirst}};
   {% endfor %}
 {% endfor %}
 
