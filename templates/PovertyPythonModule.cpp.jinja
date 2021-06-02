@@ -35,6 +35,9 @@ enum StatusCode
     {% if cv.get('nullPolicy') == 'nullAllowed' %}
       UaStatus (AS{{className}}::*setter_{{className}}_{{cv.get('name')}}_null)({{oracle.get_cache_variable_setter_args(None, False, True)}}) = &AS{{className}}::set{{cv.get('name')|capFirst}};
     {% endif %}
+    {% if cv.get('nullPolicy') == 'nullForbidden' %}
+      {{cv.get('dataType')}} (AS{{className}}::*shortgetter_{{className}}_{{cv.get('name')|capFirst}}) () const = &AS{{className}}::get{{cv.get('name')|capFirst}};
+    {% endif %}
   {% endfor %}
 {% endfor %}
 
@@ -59,7 +62,10 @@ BOOST_PYTHON_MODULE(Poverty)
         .def("set{{cv.get('name')|capFirst}}", setter_{{className}}_{{cv.get('name')}}_value, AS{{className}}_{{cv.get('name')}}_overloads())
         {% if cv.get('nullPolicy') == 'nullAllowed' %}
           .def("set{{cv.get('name')|capFirst}}", setter_{{className}}_{{cv.get('name')}}_null, AS{{className}}_{{cv.get('name')}}_overloads())
-        {% endif %}  
+        {% endif %}
+        {% if cv.get('nullPolicy') == 'nullForbidden' %}
+          .def("get{{cv.get('name')|capFirst}}", shortgetter_{{className}}_{{cv.get('name')|capFirst}})
+        {% endif %}
       {% endfor %}
       ;
     {% endfor %}
